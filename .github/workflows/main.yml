@@ -1,26 +1,37 @@
-# .github/workflows/douban.yml
 name: douban
 on: 
   schedule:
-  - cron: "30 * * * *"
+    - cron: "30 * * * *"
+  workflow_dispatch: # 加上这一行，Actions 页面就会出现手动运行按钮
 
 jobs:
   douban:
     name: Douban mark data sync
     runs-on: ubuntu-latest
     steps:
-    - name: movie
-      uses: lizheming/doumark-action@master
-      with:
-        id: lizheming
-        type: movie
-        format: neodb
-        neodb_token: ${{ secrets.neodb_token }}
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: movie
+        uses: lizheming/doumark-action@master
+        with:
+          id: 你的豆瓣ID  # 记得改成你自己的豆瓣数字ID或后缀
+          type: movie
+          format: neodb
+          neodb_token: ${{ secrets.NEODB_TOKEN }}
         
-    - name: music
-      uses: lizheming/doumark-action@master
-      with:
-        id: lizheming
-        type: music
-        format: neodb
-        neodb_token: ${{ secrets.neodb_token }}
+      - name: music
+        uses: lizheming/doumark-action@master
+        with:
+          id: 你的豆瓣ID  # 记得改成你自己的豆瓣数字ID或后缀
+          type: music
+          format: neodb
+          neodb_token: ${{ secrets.NEODB_TOKEN }}
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "chore: update douban data" || exit 0
+          git push
