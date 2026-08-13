@@ -15,7 +15,7 @@ jobs:
       - name: movie
         uses: lizheming/doumark-action@master
         with:
-          id: 你的豆瓣ID  # 记得改成你自己的豆瓣数字ID或后缀
+          id: 1763879  # 记得改成你自己的豆瓣数字ID或后缀
           type: movie
           format: neodb
           neodb_token: ${{ secrets.NEODB_TOKEN }}
@@ -23,7 +23,7 @@ jobs:
       - name: music
         uses: lizheming/doumark-action@master
         with:
-          id: 你的豆瓣ID  # 记得改成你自己的豆瓣数字ID或后缀
+          id: 1763879  # 记得改成你自己的豆瓣数字ID或后缀
           type: music
           format: neodb
           neodb_token: ${{ secrets.NEODB_TOKEN }}
