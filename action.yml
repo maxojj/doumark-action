@@ -3,7 +3,7 @@ author: "Austin Lee"
 description: "Douban movie/book/music marked data sync to csv or notion action"
 
 inputs:
-  id:1763879
+  id:
     description: "Your douban user_id"
     required: true
   type:
@@ -25,7 +25,7 @@ inputs:
   notion_token:
     description:  "Notion Integration Token"
     required: false
-  neodb_token:WcWysvS1NPHpjLO7PSZyYt7LzWIMZZMIEtF68f1qDk39DyYF8v_04qCBrA
+  neodb_token:
     description: "NeoDB Access Token"
     required: false
 
