@@ -2,20 +2,38 @@ name: Douban movies to NeoDB
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 12 * * 2"
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
+      - name: Show environment
+        run: |
+          echo "Runner: $(uname -a)"
+          echo "Date: $(date)"
+          echo "User: $(whoami)"
+          echo "PWD: $(pwd)"
+
+      - name: Show workflow variables
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Ref: $GITHUB_REF"
+          echo "Actor: $GITHUB_ACTOR"
+
       - name: Sync watched movies
         uses: lizheming/doumark-action@master
+        env:
+          ACTIONS_STEP_DEBUG: true
         with:
           id: 1763879
           type: movie
           status: done
           format: neodb
           neodb_token: ${{ secrets.NEODB_TOKEN }}
+
+      - name: Done
+        if: always()
+        run: |
+          echo "Workflow finished at $(date)"
