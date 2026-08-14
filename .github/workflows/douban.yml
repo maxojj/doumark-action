@@ -1,0 +1,24 @@
+name: Sync Douban movies to NeoDB
+
+on:
+  schedule:
+    # GitHub Actions 使用 UTC 时间
+    # 这里表示每天北京时间 03:30 运行
+    - cron: "30 19 * * 2"
+
+  workflow_dispatch:
+
+jobs:
+  sync-movies:
+    name: Sync Douban movies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sync movies
+        uses: maxojj/doumark-action@master
+        with:
+          id: 1763879
+          type: movie
+          status: done
+          format: neodb
+          neodb_token: ${{ secrets.NEODB_TOKEN }}
